@@ -62,14 +62,24 @@ nav {
 .search {
   .search-container {
     & {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
     }
-    div {
+    @media (max-width: 767px) {
       & {
-        width: 400px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+    }
+    div:first-of-type {
+      & {
+        width: 500px;
         max-width: 100%;
         display: flex;
         align-items: center;
-        margin-top: 30px;
         border-radius: 5px;
         overflow: hidden;
         background-color: white;
@@ -97,6 +107,11 @@ nav {
           color: #ccc;
         }
       }
+    }
+    button {
+      background-color: white;
+      box-shadow: 1px 1px 2px #ccc, -1px -1px 2px #ccc;
+      border: none;
     }
   }
 }
