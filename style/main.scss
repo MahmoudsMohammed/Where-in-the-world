@@ -6,11 +6,14 @@
 }
 body {
   font-family: 'Nunito Sans', sans-serif;
+  background-color: $light-mode-background;
 }
 
+// Start Nav
 nav {
   & {
     box-shadow: 0 2px 2px #ccc;
+    background-color: white;
   }
   .nav-container {
     & {
@@ -53,3 +56,48 @@ nav {
     }
   }
 }
+// End nav
+
+// Start Search
+.search {
+  .search-container {
+    & {
+    }
+    div {
+      & {
+        width: 400px;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        margin-top: 30px;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: white;
+        box-shadow: 1px 1px 2px #ccc, -1px -1px 2px #ccc;
+      }
+      [type='text'] {
+        & {
+          flex: 1;
+          border: none;
+          padding: 10px 8px;
+          font-size: 1.1rem;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+      span {
+        & {
+          width: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        i {
+          color: #ccc;
+        }
+      }
+    }
+  }
+}
+// End Search
