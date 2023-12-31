@@ -1,0 +1,55 @@
+@use './SCSS/variables' as *;
+@use './SCSS/component' as *;
+
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+nav {
+  & {
+    box-shadow: 0 2px 2px #ccc;
+  }
+  .nav-container {
+    & {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    p {
+      font-weight: 800;
+      font-size: 1.4rem;
+      margin: 0;
+    }
+    @media (max-width: 767px) {
+      p {
+        font-size: 1.1rem;
+      }
+    }
+    a {
+      & {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-decoration: none;
+        color: black;
+        padding-top: 25px;
+        padding-bottom: 25px;
+      }
+      i {
+        margin-right: 5px;
+        font-size: 1.3rem;
+      }
+      @media (max-width: 767px) {
+        & {
+          font-size: 0.9rem;
+        }
+        i {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
