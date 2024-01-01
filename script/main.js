@@ -80,7 +80,7 @@ input.addEventListener('keyup', function (e) {
 // Get Countries With The same Name
 function getCountry(_x) {
   return _getCountry.apply(this, arguments);
-}
+} // Get Countries By Region
 function _getCountry() {
   _getCountry = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(inp) {
     var response, selectedCountries;
@@ -103,4 +103,50 @@ function _getCountry() {
     }, _callee2);
   }));
   return _getCountry.apply(this, arguments);
+}
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('region')) {
+    if (e.target.innerHTML.toLocaleLowerCase() === 'all') {
+      getData().then(function (data) {
+        var content = '';
+        data.forEach(function (e) {
+          content += "\n          <div class=\"box\">\n          <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n          <div class=\"content\">\n            <h4>").concat(e.name.common, "</h4>\n            <p><span>Population: </span>").concat(e.population, "</p>\n            <p><span>Region: </span>").concat(e.region, "</p>\n            <p><span>Capital: </span>").concat(e.capital, "</p>\n          </div>\n        </div>\n          ");
+        });
+        container.innerHTML = content;
+      });
+    } else {
+      getByRegion(e.target.innerHTML.toLocaleLowerCase()).then(function (data) {
+        var content = '';
+        data.forEach(function (e) {
+          content += "\n        <div class=\"box\">\n        <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n        <div class=\"content\">\n          <h4>").concat(e.name.common, "</h4>\n          <p><span>Population: </span>").concat(e.population, "</p>\n          <p><span>Region: </span>").concat(e.region, "</p>\n          <p><span>Capital: </span>").concat(e.capital, "</p>\n        </div>\n      </div>\n        ");
+        });
+        container.innerHTML = content;
+      });
+    }
+  }
+});
+
+// Fetch Country By Selected Region
+function getByRegion(_x2) {
+  return _getByRegion.apply(this, arguments);
+}
+function _getByRegion() {
+  _getByRegion = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(region) {
+    var response, countries;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.next = 2;
+          return fetch("https://restcountries.com/v3.1/region/".concat(region));
+        case 2:
+          response = _context3.sent;
+          countries = response.json();
+          return _context3.abrupt("return", countries);
+        case 5:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3);
+  }));
+  return _getByRegion.apply(this, arguments);
 }

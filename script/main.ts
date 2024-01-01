@@ -90,3 +90,55 @@ async function getCountry(inp: string) {
   let selectedCountries = await response.json();
   return selectedCountries;
 }
+
+// Get Countries By Region
+document.addEventListener('click', (e) => {
+  if ((e.target as HTMLElement).classList.contains('region')) {
+    if ((e.target as HTMLElement).innerHTML.toLocaleLowerCase() === 'all') {
+      getData().then((data) => {
+        let content = '';
+        data.forEach((e) => {
+          content += `
+          <div class="box">
+          <img src="${e.flags.png}" alt="" />
+          <div class="content">
+            <h4>${e.name.common}</h4>
+            <p><span>Population: </span>${e.population}</p>
+            <p><span>Region: </span>${e.region}</p>
+            <p><span>Capital: </span>${e.capital}</p>
+          </div>
+        </div>
+          `;
+        });
+        container.innerHTML = content;
+      });
+    } else {
+      getByRegion((e.target as HTMLElement).innerHTML.toLocaleLowerCase()).then(
+        (data) => {
+          let content = '';
+          data.forEach((e) => {
+            content += `
+        <div class="box">
+        <img src="${e.flags.png}" alt="" />
+        <div class="content">
+          <h4>${e.name.common}</h4>
+          <p><span>Population: </span>${e.population}</p>
+          <p><span>Region: </span>${e.region}</p>
+          <p><span>Capital: </span>${e.capital}</p>
+        </div>
+      </div>
+        `;
+          });
+          container.innerHTML = content;
+        }
+      );
+    }
+  }
+});
+
+// Fetch Country By Selected Region
+async function getByRegion(region: string) {
+  let response = await fetch(`https://restcountries.com/v3.1/region/${region}`);
+  let countries = response.json();
+  return countries;
+}
