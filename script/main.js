@@ -6,7 +6,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 // Select UI Elements
 var container = document.querySelector('.countries-row'),
-  input = document.getElementById('search');
+  input = document.getElementById('search'),
+  message = document.getElementById('message');
 
 // fetch all countries when load the page
 document.addEventListener('DOMContentLoaded', function () {
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Get Data From API
 function getData() {
   return _getData.apply(this, arguments);
-}
+} // Search For Country
 function _getData() {
   _getData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var response, countries;
@@ -45,4 +46,61 @@ function _getData() {
     }, _callee);
   }));
   return _getData.apply(this, arguments);
+}
+input.addEventListener('keyup', function (e) {
+  if (e.target.value === '') {
+    // if input is empty add all countries to the container
+    getData().then(function (res) {
+      // disappear message from UI
+      message.style.display = 'none';
+      var content = '';
+      res.forEach(function (e) {
+        content += "\n        <div class=\"box\">\n        <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n        <div class=\"content\">\n          <h4>").concat(e.name.common, "</h4>\n          <p><span>Population: </span>").concat(e.population, "</p>\n          <p><span>Region: </span>").concat(e.region, "</p>\n          <p><span>Capital: </span>").concat(e.capital, "</p>\n        </div>\n      </div>\n        ");
+      });
+      container.innerHTML = content;
+    });
+  } else {
+    // There is value in the input field
+    getCountry(e.target.value).then(function (selected) {
+      // Display message if there is no country with entered name
+      if (selected.message === 'Not Found') {
+        message.style.display = 'block';
+      } else {
+        message.style.display = 'none';
+        var content = '';
+        selected.forEach(function (e) {
+          content += "\n          <div class=\"box\">\n          <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n          <div class=\"content\">\n            <h4>").concat(e.name.common, "</h4>\n            <p><span>Population: </span>").concat(e.population, "</p>\n            <p><span>Region: </span>").concat(e.region, "</p>\n            <p><span>Capital: </span>").concat(e.capital, "</p>\n          </div>\n        </div>\n          ");
+        });
+        container.innerHTML = content;
+      }
+    });
+  }
+});
+
+// Get Countries With The same Name
+function getCountry(_x) {
+  return _getCountry.apply(this, arguments);
+}
+function _getCountry() {
+  _getCountry = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(inp) {
+    var response, selectedCountries;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return fetch("https://restcountries.com/v3.1/name/".concat(inp, "\n  "));
+        case 2:
+          response = _context2.sent;
+          _context2.next = 5;
+          return response.json();
+        case 5:
+          selectedCountries = _context2.sent;
+          return _context2.abrupt("return", selectedCountries);
+        case 7:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+  return _getCountry.apply(this, arguments);
 }
