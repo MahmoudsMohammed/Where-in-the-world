@@ -129,7 +129,7 @@ document.addEventListener('click', function (e) {
 // Fetch Country By Selected Region
 function getByRegion(_x2) {
   return _getByRegion.apply(this, arguments);
-}
+} // Convert Mode To Dark
 function _getByRegion() {
   _getByRegion = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(region) {
     var response, countries;
@@ -150,3 +150,7 @@ function _getByRegion() {
   }));
   return _getByRegion.apply(this, arguments);
 }
+document.getElementById('mode').addEventListener('click', function (e) {
+  document.body.classList.toggle('dark-mode');
+  document.getElementById('moon').classList.toggle('fa-solid');
+});

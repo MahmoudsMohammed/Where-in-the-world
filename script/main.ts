@@ -142,3 +142,14 @@ async function getByRegion(region: string) {
   let countries = response.json();
   return countries;
 }
+
+// Convert Mode To Dark
+(document.getElementById('mode') as HTMLElement).addEventListener(
+  'click',
+  (e) => {
+    document.body.classList.toggle('dark-mode');
+    (document.getElementById('moon') as HTMLElement).classList.toggle(
+      'fa-solid'
+    );
+  }
+);

@@ -1,19 +1,29 @@
-@use './SCSS/variables' as *;
-@use './SCSS/component' as *;
-
 * {
   box-sizing: border-box;
 }
 body {
   font-family: 'Nunito Sans', sans-serif;
-  background-color: $light-mode-background;
+  background-color: var(--body);
+}
+:root {
+  --text: hsl(200, 15%, 8%);
+  --elements: white;
+  --shadow: #e9e7e7;
+  --body: hsl(0, 0%, 98%);
+}
+// Class To cahnge variable values at dark mode 
+.dark-mode {
+  --body: hsl(207, 26%, 17%);
+  --elements: hsl(209, 23%, 22%);
+  --text: hsl(0, 0%, 100%);
+  --shadow: #343a40;
 }
 
 // Start Nav
 nav {
   & {
-    box-shadow: 0 2px 2px #ccc;
-    background-color: white;
+    box-shadow: 1px 1px 1px var(--shadow);
+    background-color: var(--elements);
   }
   .nav-container {
     & {
@@ -25,6 +35,7 @@ nav {
       font-weight: 800;
       font-size: 1.4rem;
       margin: 0;
+      color: var(--text);
     }
     @media (max-width: 767px) {
       p {
@@ -33,17 +44,18 @@ nav {
     }
     a {
       & {
-        display: block;
+        display: flex;
+        align-items: center;
         font-size: 1.2rem;
         font-weight: 600;
         text-decoration: none;
-        color: black;
-        padding-top: 25px;
-        padding-bottom: 25px;
+        color: var(--text);
+        height: 80px;
       }
       i {
         margin-right: 5px;
         font-size: 1.3rem;
+        color: var(--text);
       }
       @media (max-width: 767px) {
         & {
@@ -82,8 +94,8 @@ nav {
         align-items: center;
         border-radius: 5px;
         overflow: hidden;
-        background-color: white;
-        box-shadow: 1px 1px 2px #ccc, -1px -1px 2px #ccc;
+        background-color: var(--elements);
+        box-shadow: 1px 1px 1px var(--shadow), -1px -1px 1px var(--shadow);
       }
       [type='text'] {
         & {
@@ -91,6 +103,8 @@ nav {
           border: none;
           padding: 10px 8px;
           font-size: 1.1rem;
+          background-color: inherit;
+          color: var(--text);
         }
         &:focus {
           outline: none;
@@ -108,12 +122,31 @@ nav {
         }
       }
     }
-    button {
-      background-color: white;
-      box-shadow: 1px 1px 2px #ccc, -1px -1px 2px #ccc;
-      font-weight: 600;
-      padding: 10px 15px;
-      border: none;
+    .drop {
+      & {
+        background-color: var(--elements);
+        box-shadow: 1px 1px 1px var(--shadow), -1px -1px 1px var(--shadow);
+        border-radius: 5px;
+      }
+      button {
+        font-weight: 600;
+        padding: 10px 15px;
+        border: none;
+        color: var(--text);
+      }
+      .menu {
+        & {
+          background-color: var(--elements);
+        }
+        li {
+          a {
+            display: block;
+            padding: 4px 16px;
+            text-decoration: none;
+            color: var(--text);
+          }
+        }
+      }
     }
   }
 }
@@ -122,17 +155,18 @@ nav {
 // Start countries
 .countries {
   .countries-container {
-    .countries-row{
+    .countries-row {
       display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 30px;
     }
     .box {
       & {
         border-radius: 10px;
-        box-shadow: 1px 1px 2px #ccc, -1px -1px 2px #ccc;
+        box-shadow: 1px 1px 1px var(--shadow), -1px -1px 1px var(--shadow);
         overflow: hidden;
-        background-color: white;
+        background-color: var(--elements);
+        color: var(--text);
         padding: 0px;
       }
       img {
