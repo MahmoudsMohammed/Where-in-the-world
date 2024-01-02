@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let content = '';
     res.forEach((e) => {
       content += `
-      <div class="box">
+      <a  class="box">
       <img src="${e.flags.png}" alt="" />
       <div class="content">
         <h4>${e.name.common}</h4>
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p><span>Region: </span>${e.region}</p>
         <p><span>Capital: </span>${e.capital}</p>
       </div>
-    </div>
+    </a>
       `;
     });
     container.innerHTML = content;
@@ -41,7 +41,7 @@ input.addEventListener('keyup', (e) => {
       let content = '';
       res.forEach((e) => {
         content += `
-        <div class="box">
+        <a class="box">
         <img src="${e.flags.png}" alt="" />
         <div class="content">
           <h4>${e.name.common}</h4>
@@ -49,7 +49,7 @@ input.addEventListener('keyup', (e) => {
           <p><span>Region: </span>${e.region}</p>
           <p><span>Capital: </span>${e.capital}</p>
         </div>
-      </div>
+      </a>
         `;
       });
       container.innerHTML = content;
@@ -65,7 +65,7 @@ input.addEventListener('keyup', (e) => {
         let content = '';
         selected.forEach((e) => {
           content += `
-          <div class="box">
+          <a class="box">
           <img src="${e.flags.png}" alt="" />
           <div class="content">
             <h4>${e.name.common}</h4>
@@ -73,7 +73,7 @@ input.addEventListener('keyup', (e) => {
             <p><span>Region: </span>${e.region}</p>
             <p><span>Capital: </span>${e.capital}</p>
           </div>
-        </div>
+        </a>
           `;
         });
         container.innerHTML = content;
@@ -99,7 +99,7 @@ document.addEventListener('click', (e) => {
         let content = '';
         data.forEach((e) => {
           content += `
-          <div class="box">
+          <a class="box">
           <img src="${e.flags.png}" alt="" />
           <div class="content">
             <h4>${e.name.common}</h4>
@@ -107,7 +107,7 @@ document.addEventListener('click', (e) => {
             <p><span>Region: </span>${e.region}</p>
             <p><span>Capital: </span>${e.capital}</p>
           </div>
-        </div>
+        </a>
           `;
         });
         container.innerHTML = content;
@@ -118,7 +118,7 @@ document.addEventListener('click', (e) => {
           let content = '';
           data.forEach((e) => {
             content += `
-        <div class="box">
+        <a class="box">
         <img src="${e.flags.png}" alt="" />
         <div class="content">
           <h4>${e.name.common}</h4>
@@ -126,7 +126,7 @@ document.addEventListener('click', (e) => {
           <p><span>Region: </span>${e.region}</p>
           <p><span>Capital: </span>${e.capital}</p>
         </div>
-      </div>
+      </a>
         `;
           });
           container.innerHTML = content;

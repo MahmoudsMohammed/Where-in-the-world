@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
   getData().then(function (res) {
     var content = '';
     res.forEach(function (e) {
-      content += "\n      <div class=\"box\">\n      <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n      <div class=\"content\">\n        <h4>").concat(e.name.common, "</h4>\n        <p><span>Population: </span>").concat(e.population, "</p>\n        <p><span>Region: </span>").concat(e.region, "</p>\n        <p><span>Capital: </span>").concat(e.capital, "</p>\n      </div>\n    </div>\n      ");
+      content += "\n      <a  class=\"box\">\n      <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n      <div class=\"content\">\n        <h4>").concat(e.name.common, "</h4>\n        <p><span>Population: </span>").concat(e.population, "</p>\n        <p><span>Region: </span>").concat(e.region, "</p>\n        <p><span>Capital: </span>").concat(e.capital, "</p>\n      </div>\n    </a>\n      ");
     });
     container.innerHTML = content;
   });
@@ -55,7 +55,7 @@ input.addEventListener('keyup', function (e) {
       message.style.display = 'none';
       var content = '';
       res.forEach(function (e) {
-        content += "\n        <div class=\"box\">\n        <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n        <div class=\"content\">\n          <h4>").concat(e.name.common, "</h4>\n          <p><span>Population: </span>").concat(e.population, "</p>\n          <p><span>Region: </span>").concat(e.region, "</p>\n          <p><span>Capital: </span>").concat(e.capital, "</p>\n        </div>\n      </div>\n        ");
+        content += "\n        <a class=\"box\">\n        <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n        <div class=\"content\">\n          <h4>").concat(e.name.common, "</h4>\n          <p><span>Population: </span>").concat(e.population, "</p>\n          <p><span>Region: </span>").concat(e.region, "</p>\n          <p><span>Capital: </span>").concat(e.capital, "</p>\n        </div>\n      </a>\n        ");
       });
       container.innerHTML = content;
     });
@@ -69,7 +69,7 @@ input.addEventListener('keyup', function (e) {
         message.style.display = 'none';
         var content = '';
         selected.forEach(function (e) {
-          content += "\n          <div class=\"box\">\n          <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n          <div class=\"content\">\n            <h4>").concat(e.name.common, "</h4>\n            <p><span>Population: </span>").concat(e.population, "</p>\n            <p><span>Region: </span>").concat(e.region, "</p>\n            <p><span>Capital: </span>").concat(e.capital, "</p>\n          </div>\n        </div>\n          ");
+          content += "\n          <a class=\"box\">\n          <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n          <div class=\"content\">\n            <h4>").concat(e.name.common, "</h4>\n            <p><span>Population: </span>").concat(e.population, "</p>\n            <p><span>Region: </span>").concat(e.region, "</p>\n            <p><span>Capital: </span>").concat(e.capital, "</p>\n          </div>\n        </a>\n          ");
         });
         container.innerHTML = content;
       }
@@ -110,7 +110,7 @@ document.addEventListener('click', function (e) {
       getData().then(function (data) {
         var content = '';
         data.forEach(function (e) {
-          content += "\n          <div class=\"box\">\n          <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n          <div class=\"content\">\n            <h4>").concat(e.name.common, "</h4>\n            <p><span>Population: </span>").concat(e.population, "</p>\n            <p><span>Region: </span>").concat(e.region, "</p>\n            <p><span>Capital: </span>").concat(e.capital, "</p>\n          </div>\n        </div>\n          ");
+          content += "\n          <a class=\"box\">\n          <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n          <div class=\"content\">\n            <h4>").concat(e.name.common, "</h4>\n            <p><span>Population: </span>").concat(e.population, "</p>\n            <p><span>Region: </span>").concat(e.region, "</p>\n            <p><span>Capital: </span>").concat(e.capital, "</p>\n          </div>\n        </a>\n          ");
         });
         container.innerHTML = content;
       });
@@ -118,7 +118,7 @@ document.addEventListener('click', function (e) {
       getByRegion(e.target.innerHTML.toLocaleLowerCase()).then(function (data) {
         var content = '';
         data.forEach(function (e) {
-          content += "\n        <div class=\"box\">\n        <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n        <div class=\"content\">\n          <h4>").concat(e.name.common, "</h4>\n          <p><span>Population: </span>").concat(e.population, "</p>\n          <p><span>Region: </span>").concat(e.region, "</p>\n          <p><span>Capital: </span>").concat(e.capital, "</p>\n        </div>\n      </div>\n        ");
+          content += "\n        <a class=\"box\">\n        <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n        <div class=\"content\">\n          <h4>").concat(e.name.common, "</h4>\n          <p><span>Population: </span>").concat(e.population, "</p>\n          <p><span>Region: </span>").concat(e.region, "</p>\n          <p><span>Capital: </span>").concat(e.capital, "</p>\n        </div>\n      </a>\n        ");
         });
         container.innerHTML = content;
       });

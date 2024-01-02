@@ -11,7 +11,7 @@ body {
   --shadow: #e9e7e7;
   --body: hsl(0, 0%, 98%);
 }
-// Class To cahnge variable values at dark mode 
+// Class To cahnge variable values at dark mode
 .dark-mode {
   --body: hsl(207, 26%, 17%);
   --elements: hsl(209, 23%, 22%);
@@ -168,6 +168,9 @@ nav {
         background-color: var(--elements);
         color: var(--text);
         padding: 0px;
+        display: block;
+        text-decoration: none;
+        cursor: pointer;
       }
       img {
         width: 100%;
@@ -189,3 +192,78 @@ nav {
   }
 }
 // End countries
+
+// Start Country
+.country {
+  button {
+    border: none;
+    padding: 8px 25px;
+    border-radius: 5px;
+    background-color: var(--elements);
+    color: var(--text);
+    box-shadow: 1px 1px 1px var(--shadow), -1px -1px 1px var(--shadow);
+  }
+  .country-container {
+    & {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
+    .image {
+      & {
+        flex: 1;
+      }
+      img {
+        width: 100%;
+      }
+    }
+    .content {
+      & {
+        width: 60%;
+      }
+      > p {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--text);
+      }
+      .info {
+        & {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+        }
+        p {
+          & {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.1rem;
+          }
+          span {
+            color: var(--text);
+            font-weight: normal;
+          }
+        }
+      }
+      .bord-countries {
+        & {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+        p {
+          font-weight: 600;
+          color: var(--text);
+          margin: 0px;
+          font-size: 1.1rem;
+        }
+        span{
+          padding: 5px 15px;
+          box-shadow: 1px 1px 1px var(--shadow), -1px -1px 1px var(--shadow);
+          background-color: var(--elements);
+          color: var(--text);
+        }
+      }
+    }
+  }
+}
+// End Country
