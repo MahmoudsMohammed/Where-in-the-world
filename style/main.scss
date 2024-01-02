@@ -197,7 +197,8 @@ nav {
 .country {
   button {
     border: none;
-    padding: 8px 25px;
+    width: 100px;
+    height: 50px;
     border-radius: 5px;
     background-color: var(--elements);
     color: var(--text);
@@ -206,20 +207,36 @@ nav {
   .country-container {
     & {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 50px;
+    }
+    @media (max-width: 767px) {
+      & {
+        flex-direction: column;
+      }
     }
     .image {
       & {
         flex: 1;
       }
       img {
+        display: block;
         width: 100%;
+      }
+      @media (max-width: 767px) {
+        & {
+          margin: auto;
+        }
       }
     }
     .content {
       & {
         width: 60%;
+      }
+      @media (max-width: 767px) {
+        & {
+          width: 100%;
+        }
       }
       > p {
         font-size: 1.4rem;
@@ -231,6 +248,12 @@ nav {
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
+        }
+        @media (max-width: 767px) {
+          & {
+            flex-direction: column;
+            align-items: flex-start;
+          }
         }
         p {
           & {
@@ -248,7 +271,8 @@ nav {
         & {
           display: flex;
           align-items: center;
-          gap: 20px;
+          flex-wrap: wrap;
+          row-gap: 15px;
         }
         p {
           font-weight: 600;
@@ -256,11 +280,12 @@ nav {
           margin: 0px;
           font-size: 1.1rem;
         }
-        span{
+        span {
           padding: 5px 15px;
           box-shadow: 1px 1px 1px var(--shadow), -1px -1px 1px var(--shadow);
           background-color: var(--elements);
           color: var(--text);
+          margin-left: 20px;
         }
       }
     }

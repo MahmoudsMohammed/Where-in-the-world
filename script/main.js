@@ -7,8 +7,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // Select UI Elements
 var container = document.querySelector('.countries-row'),
   input = document.getElementById('search'),
-  message = document.getElementById('message');
-
+  message = document.getElementById('message'),
+  country = document.querySelector('.country');
 // fetch all countries when load the page
 document.addEventListener('DOMContentLoaded', function () {
   getData().then(function (res) {
@@ -153,4 +153,91 @@ function _getByRegion() {
 document.getElementById('mode').addEventListener('click', function (e) {
   document.body.classList.toggle('dark-mode');
   document.getElementById('moon').classList.toggle('fa-solid');
+});
+
+// make event on single country to display it's page
+document.addEventListener('click', function (e) {
+  // Get Country Name From The Box
+  var name = '';
+  // click on img or content div
+  if (e.target.parentElement.classList.contains('box')) {
+    // click on content div
+    if (e.target.classList.contains('content')) {
+      name = e.target.firstElementChild.innerHTML;
+    } else {
+      // click on img
+      name = e.target.nextElementSibling.firstElementChild.innerHTML;
+    }
+  } else if (
+  // click on content div elements
+  e.target.parentElement.parentElement.classList.contains('box')) {
+    name = e.target.parentElement.firstElementChild.innerHTML;
+  } else if (e.target.parentElement.parentElement.parentElement.classList.contains('box')) {
+    name = e.target.parentElement.parentElement.firstElementChild.innerHTML;
+  }
+
+  // Make request and get country data
+  if (name !== '') {
+    getCountryByFullName(name).then(function (data) {
+      data = data[0];
+      // loop over borders Array if exsist in Selected Country
+      var borders = '';
+      if (data.borders !== undefined) {
+        data.borders.forEach(function (e) {
+          borders += "<span>".concat(e, "</span>");
+        });
+      }
+      // loop over languages object
+      var languages = '';
+      for (var x in data.languages) {
+        languages += "\n          <span>".concat(x, "</span>\n          ");
+      }
+      // loop over currencies object
+      var currencies = '';
+      for (var _x3 in data.currencies) {
+        currencies += "\n        <span>".concat(_x3, "</span>\n        ");
+      }
+      // create html and inject data from API
+      var content = "\n        <div class=\"container\">\n        <button id=\"back\">\n          <i class=\"fa-solid fa-arrow-left me-2\"></i> <span>Back</span>\n        </button>\n        <div class=\"country-container my-5\">\n          <div class=\"image\">\n            <img src=\"".concat(data.flags.png, "\" alt=\"\" />\n          </div>\n          <div class=\"content\">\n            <p>").concat(data.name.common, "</p>\n            <div class=\"info\">\n              <div class=\"boxe\">\n                <p>Native Name: <span>").concat(data.name.common, "</span></p>\n                <p>Population: <span>").concat(data.population, "</span></p>\n                <p>Region: <span>").concat(data.region, "</span></p>\n                <p>Sub Region: <span>").concat(data.subregion, "</span></p>\n                <p>Capital: <span>").concat(data.capital, "</span></p>\n              </div>\n              <div class=\"boxe\">\n                <p>Top Level Domain: <span>").concat(data.tld, "</span></p>\n                <p>Currencies: ").concat(currencies, "</p>\n                <p>Languages: ").concat(languages, "</p>\n              </div>\n            </div>\n            <div class=\"bord-countries mt-5\">\n              <p>Border Countries:</p>\n              <div>").concat(borders, "</div>\n            </div>\n          </div>\n        </div>\n      </div>\n        ");
+      country.innerHTML = content;
+      container.style.display = 'none';
+      document.querySelector('.search').style.display = 'none';
+      country.style.display = 'block';
+    });
+  }
+});
+
+// Get Country Data
+function getCountryByFullName(_x4) {
+  return _getCountryByFullName.apply(this, arguments);
+} // Listen For Back button
+function _getCountryByFullName() {
+  _getCountryByFullName = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(inp) {
+    var response, selectedCountries;
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.next = 2;
+          return fetch("https://restcountries.com/v3.1/name/".concat(inp, "?fullText=true\n  "));
+        case 2:
+          response = _context4.sent;
+          _context4.next = 5;
+          return response.json();
+        case 5:
+          selectedCountries = _context4.sent;
+          return _context4.abrupt("return", selectedCountries);
+        case 7:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4);
+  }));
+  return _getCountryByFullName.apply(this, arguments);
+}
+document.addEventListener('click', function (e) {
+  if (e.target.parentElement.id === 'back' || e.target.id === 'back') {
+    country.style.display = 'none';
+    container.style.display = 'grid';
+    document.querySelector('.search').style.display = 'block';
+  }
 });

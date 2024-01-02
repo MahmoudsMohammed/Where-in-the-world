@@ -1,8 +1,8 @@
 // Select UI Elements
 const container = document.querySelector('.countries-row') as HTMLElement,
   input = document.getElementById('search') as HTMLInputElement,
-  message = document.getElementById('message') as HTMLInputElement;
-
+  message = document.getElementById('message') as HTMLInputElement,
+  country = document.querySelector('.country') as HTMLElement;
 // fetch all countries when load the page
 document.addEventListener('DOMContentLoaded', () => {
   getData().then((res) => {
@@ -153,3 +153,139 @@ async function getByRegion(region: string) {
     );
   }
 );
+
+// make event on single country to display it's page
+document.addEventListener('click', (e) => {
+  // Get Country Name From The Box
+  let name: string = '';
+  // click on img or content div
+  if (
+    ((e.target as HTMLElement).parentElement as HTMLElement).classList.contains(
+      'box'
+    )
+  ) {
+    // click on content div
+    if ((e.target as HTMLElement).classList.contains('content')) {
+      name = ((e.target as HTMLElement).firstElementChild as HTMLElement)
+        .innerHTML;
+    } else {
+      // click on img
+      name = (
+        ((e.target as HTMLElement).nextElementSibling as HTMLElement)
+          .firstElementChild as HTMLElement
+      ).innerHTML;
+    }
+  } else if (
+    // click on content div elements
+    (
+      ((e.target as HTMLElement).parentElement as HTMLElement)
+        .parentElement as HTMLElement
+    ).classList.contains('box')
+  ) {
+    name = (
+      ((e.target as HTMLElement).parentElement as HTMLElement)
+        .firstElementChild as HTMLElement
+    ).innerHTML;
+  } else if (
+    (
+      (
+        ((e.target as HTMLElement).parentElement as HTMLElement)
+          .parentElement as HTMLElement
+      ).parentElement as HTMLElement
+    ).classList.contains('box')
+  ) {
+    name = (
+      (
+        ((e.target as HTMLElement).parentElement as HTMLElement)
+          .parentElement as HTMLElement
+      ).firstElementChild as HTMLElement
+    ).innerHTML;
+  }
+
+  // Make request and get country data
+  if (name !== '') {
+    getCountryByFullName(name).then((data) => {
+      data = data[0];
+      // loop over borders Array if exsist in Selected Country
+      let borders: string = '';
+      if (data.borders !== undefined) {
+        data.borders.forEach((e) => {
+          borders += `<span>${e}</span>`;
+        });
+      }
+      // loop over languages object
+      let languages: string = '';
+      for (let x in data.languages) {
+        languages += `
+          <span>${x}</span>
+          `;
+      }
+      // loop over currencies object
+      let currencies: string = '';
+      for (let x in data.currencies) {
+        currencies += `
+        <span>${x}</span>
+        `;
+      }
+      // create html and inject data from API
+      let content: string = `
+        <div class="container">
+        <button id="back">
+          <i class="fa-solid fa-arrow-left me-2"></i> <span>Back</span>
+        </button>
+        <div class="country-container my-5">
+          <div class="image">
+            <img src="${data.flags.png}" alt="" />
+          </div>
+          <div class="content">
+            <p>${data.name.common}</p>
+            <div class="info">
+              <div class="boxe">
+                <p>Native Name: <span>${data.name.common}</span></p>
+                <p>Population: <span>${data.population}</span></p>
+                <p>Region: <span>${data.region}</span></p>
+                <p>Sub Region: <span>${data.subregion}</span></p>
+                <p>Capital: <span>${data.capital}</span></p>
+              </div>
+              <div class="boxe">
+                <p>Top Level Domain: <span>${data.tld}</span></p>
+                <p>Currencies: ${currencies}</p>
+                <p>Languages: ${languages}</p>
+              </div>
+            </div>
+            <div class="bord-countries mt-5">
+              <p>Border Countries:</p>
+              <div>${borders}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+        `;
+      country.innerHTML = content;
+      container.style.display = 'none';
+      (document.querySelector('.search') as HTMLElement).style.display = 'none';
+      country.style.display = 'block';
+    });
+  }
+});
+
+// Get Country Data
+async function getCountryByFullName(inp: string) {
+  let response =
+    await fetch(`https://restcountries.com/v3.1/name/${inp}?fullText=true
+  `);
+  let selectedCountries = await response.json();
+  return selectedCountries;
+}
+
+// Listen For Back button
+document.addEventListener('click', (e) => {
+  if (
+    ((e.target as HTMLElement).parentElement as HTMLElement).id === 'back' ||
+    (e.target as HTMLElement).id === 'back'
+  ) {
+    country.style.display = 'none';
+    container.style.display = 'grid';
+    (document.querySelector('.search') as HTMLElement).style.display = 'block';
+  }
+});
