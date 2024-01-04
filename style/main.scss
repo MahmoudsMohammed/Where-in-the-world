@@ -281,12 +281,17 @@ nav {
           margin: 0px;
           font-size: 1.1rem;
         }
+        div {
+          margin-left: 20px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px 20px;
+        }
         span {
           padding: 5px 15px;
           box-shadow: 1px 1px 1px var(--shadow), -1px -1px 1px var(--shadow);
           background-color: var(--elements);
           color: var(--text);
-          margin-left: 20px;
         }
       }
     }
