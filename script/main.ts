@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </a>
       `;
     });
+    message.style.display = 'none';
     container.innerHTML = content;
   });
 });
@@ -41,8 +42,6 @@ input.addEventListener('keyup', (e) => {
   if ((e.target as HTMLInputElement).value === '') {
     // if input is empty add all countries to the container
     getData().then((res) => {
-      // disappear message from UI
-      message.style.display = 'none';
       let content = '';
       res.forEach((e) => {
         content += `
@@ -57,6 +56,8 @@ input.addEventListener('keyup', (e) => {
       </a>
         `;
       });
+      // disappear message from UI
+      message.style.display = 'none';
       container.innerHTML = content;
     });
   } else {
@@ -66,7 +67,6 @@ input.addEventListener('keyup', (e) => {
       if (selected.message === 'Not Found') {
         message.style.display = 'block';
       } else {
-        message.style.display = 'none';
         let content = '';
         selected.forEach((e) => {
           content += `
@@ -81,6 +81,7 @@ input.addEventListener('keyup', (e) => {
         </a>
           `;
         });
+        message.style.display = 'none';
         container.innerHTML = content;
       }
     });
@@ -117,6 +118,7 @@ document.addEventListener('click', (e) => {
         </a>
           `;
         });
+        message.style.display = 'none';
         container.innerHTML = content;
       });
     } else {
@@ -136,6 +138,7 @@ document.addEventListener('click', (e) => {
       </a>
         `;
           });
+          message.style.display = 'none';
           container.innerHTML = content;
         }
       );
@@ -273,6 +276,7 @@ document.addEventListener('click', (e) => {
         </div>
       </div>
         `;
+      message.style.display = 'none';
       country.innerHTML = content;
       container.style.display = 'none';
       (document.querySelector('.search') as HTMLElement).style.display = 'none';
