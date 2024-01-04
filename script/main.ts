@@ -3,6 +3,9 @@ const container = document.querySelector('.countries-row') as HTMLElement,
   input = document.getElementById('search') as HTMLInputElement,
   message = document.getElementById('message') as HTMLInputElement,
   country = document.querySelector('.country') as HTMLElement;
+
+/***********************************************************************************/
+
 // fetch all countries when load the page
 document.addEventListener('DOMContentLoaded', () => {
   getData().then((res) => {
@@ -30,6 +33,8 @@ async function getData() {
   let countries = await response.json();
   return countries;
 }
+
+/***********************************************************************************/
 
 // Search For Country
 input.addEventListener('keyup', (e) => {
@@ -91,6 +96,8 @@ async function getCountry(inp: string) {
   return selectedCountries;
 }
 
+/***********************************************************************************/
+
 // Get Countries By Region
 document.addEventListener('click', (e) => {
   if ((e.target as HTMLElement).classList.contains('region')) {
@@ -143,16 +150,21 @@ async function getByRegion(region: string) {
   return countries;
 }
 
+/***********************************************************************************/
+
 // Convert Mode To Dark
 (document.getElementById('mode') as HTMLElement).addEventListener(
   'click',
   (e) => {
+    // change variables values
     document.body.classList.toggle('dark-mode');
     (document.getElementById('moon') as HTMLElement).classList.toggle(
       'fa-solid'
     );
   }
 );
+
+/***********************************************************************************/
 
 // make event on single country to display it's page
 document.addEventListener('click', (e) => {
@@ -278,6 +290,8 @@ async function getCountryByFullName(inp: string) {
   return selectedCountries;
 }
 
+/***********************************************************************************/
+
 // Listen For Back button
 document.addEventListener('click', (e) => {
   if (
@@ -289,3 +303,5 @@ document.addEventListener('click', (e) => {
     (document.querySelector('.search') as HTMLElement).style.display = 'block';
   }
 });
+
+/***********************************************************************************/
