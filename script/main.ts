@@ -69,56 +69,23 @@ input.addEventListener('keyup', (e) => {
 /***********************************************************************************/
 
 // Get Countries By Region
-document.addEventListener('click', (e) => {
+(document.querySelector('.search') as HTMLElement).addEventListener('click', (e) => {
   if ((e.target as HTMLElement).classList.contains('region')) {
     if ((e.target as HTMLElement).innerHTML.toLocaleLowerCase() === 'all') {
-      getData().then((data) => {
-        let content = '';
-        data.forEach((e) => {
-          content += `
-          <a class="box">
-          <img src="${e.flags.png}" alt="" />
-          <div class="content">
-            <h4>${e.name.common}</h4>
-            <p><span>Population: </span>${e.population}</p>
-            <p><span>Region: </span>${e.region}</p>
-            <p><span>Capital: </span>${e.capital}</p>
-          </div>
-        </a>
-          `;
-        });
-        container.innerHTML = content;
-      });
+      displayCountries(data);
     } else {
-      getByRegion((e.target as HTMLElement).innerHTML.toLocaleLowerCase()).then(
-        (data) => {
-          let content = '';
-          data.forEach((e) => {
-            content += `
-        <a class="box">
-        <img src="${e.flags.png}" alt="" />
-        <div class="content">
-          <h4>${e.name.common}</h4>
-          <p><span>Population: </span>${e.population}</p>
-          <p><span>Region: </span>${e.region}</p>
-          <p><span>Capital: </span>${e.capital}</p>
-        </div>
-      </a>
-        `;
-          });
-          container.innerHTML = content;
+      let region = (e.target as HTMLElement).innerHTML.toLocaleLowerCase(),
+        // array contain all countries object have same region 
+        countries: object[] = [];
+      data.forEach((e) => {
+        if (e.region.toLocaleLowerCase() === region) {
+          countries.push(e);
         }
-      );
+      });
+      displayCountries(countries);
     }
   }
 });
-
-// Fetch Country By Selected Region
-async function getByRegion(region: string) {
-  let response = await fetch(`https://restcountries.com/v3.1/region/${region}`);
-  let countries = response.json();
-  return countries;
-}
 
 /***********************************************************************************/
 

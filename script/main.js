@@ -80,54 +80,27 @@ input.addEventListener('keyup', function (e) {
 /***********************************************************************************/
 
 // Get Countries By Region
-document.addEventListener('click', function (e) {
+document.querySelector('.search').addEventListener('click', function (e) {
   if (e.target.classList.contains('region')) {
     if (e.target.innerHTML.toLocaleLowerCase() === 'all') {
-      getData().then(function (data) {
-        var content = '';
-        data.forEach(function (e) {
-          content += "\n          <a class=\"box\">\n          <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n          <div class=\"content\">\n            <h4>").concat(e.name.common, "</h4>\n            <p><span>Population: </span>").concat(e.population, "</p>\n            <p><span>Region: </span>").concat(e.region, "</p>\n            <p><span>Capital: </span>").concat(e.capital, "</p>\n          </div>\n        </a>\n          ");
-        });
-        container.innerHTML = content;
-      });
+      displayCountries(data);
     } else {
-      getByRegion(e.target.innerHTML.toLocaleLowerCase()).then(function (data) {
-        var content = '';
-        data.forEach(function (e) {
-          content += "\n        <a class=\"box\">\n        <img src=\"".concat(e.flags.png, "\" alt=\"\" />\n        <div class=\"content\">\n          <h4>").concat(e.name.common, "</h4>\n          <p><span>Population: </span>").concat(e.population, "</p>\n          <p><span>Region: </span>").concat(e.region, "</p>\n          <p><span>Capital: </span>").concat(e.capital, "</p>\n        </div>\n      </a>\n        ");
-        });
-        container.innerHTML = content;
+      var region = e.target.innerHTML.toLocaleLowerCase(),
+        // array contain all countries object have same region 
+        countries = [];
+      data.forEach(function (e) {
+        if (e.region.toLocaleLowerCase() === region) {
+          countries.push(e);
+        }
       });
+      displayCountries(countries);
     }
   }
 });
 
-// Fetch Country By Selected Region
-function getByRegion(_x) {
-  return _getByRegion.apply(this, arguments);
-}
 /***********************************************************************************/
+
 // Convert Mode To Dark
-function _getByRegion() {
-  _getByRegion = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(region) {
-    var response, countries;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
-        case 0:
-          _context2.next = 2;
-          return fetch("https://restcountries.com/v3.1/region/".concat(region));
-        case 2:
-          response = _context2.sent;
-          countries = response.json();
-          return _context2.abrupt("return", countries);
-        case 5:
-        case "end":
-          return _context2.stop();
-      }
-    }, _callee2);
-  }));
-  return _getByRegion.apply(this, arguments);
-}
 document.getElementById('mode').addEventListener('click', function (e) {
   // change variables values
   document.body.classList.toggle('dark-mode');
@@ -175,8 +148,8 @@ document.addEventListener('click', function (e) {
       }
       // loop over currencies object
       var currencies = '';
-      for (var _x2 in data.currencies) {
-        currencies += "\n        <span>".concat(_x2, "</span>\n        ");
+      for (var _x in data.currencies) {
+        currencies += "\n        <span>".concat(_x, "</span>\n        ");
       }
       // create html and inject data from API
       var content = "\n        <div class=\"container\">\n        <button id=\"back\">\n          <i class=\"fa-solid fa-arrow-left me-2\"></i> <span>Back</span>\n        </button>\n        <div class=\"country-container my-5\">\n          <div class=\"image\">\n            <img src=\"".concat(data.flags.png, "\" alt=\"\" />\n          </div>\n          <div class=\"content\">\n            <p>").concat(data.name.common, "</p>\n            <div class=\"info\">\n              <div class=\"boxe\">\n                <p>Native Name: <span>").concat(data.name.common, "</span></p>\n                <p>Population: <span>").concat(data.population, "</span></p>\n                <p>Region: <span>").concat(data.region, "</span></p>\n                <p>Sub Region: <span>").concat(data.subregion, "</span></p>\n                <p>Capital: <span>").concat(data.capital, "</span></p>\n              </div>\n              <div class=\"boxe\">\n                <p>Top Level Domain: <span>").concat(data.tld, "</span></p>\n                <p>Currencies: ").concat(currencies, "</p>\n                <p>Languages: ").concat(languages, "</p>\n              </div>\n            </div>\n            <div class=\"bord-countries mt-5\">\n              <p>Border Countries:</p>\n              <div>").concat(borders, "</div>\n            </div>\n          </div>\n        </div>\n      </div>\n        ");
@@ -189,31 +162,31 @@ document.addEventListener('click', function (e) {
 });
 
 // Get Country Data
-function getCountryByFullName(_x3) {
+function getCountryByFullName(_x2) {
   return _getCountryByFullName.apply(this, arguments);
 }
 /***********************************************************************************/
 // Listen For Back button
 function _getCountryByFullName() {
-  _getCountryByFullName = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(inp) {
+  _getCountryByFullName = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(inp) {
     var response, selectedCountries;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          _context3.next = 2;
+          _context2.next = 2;
           return fetch("https://restcountries.com/v3.1/name/".concat(inp, "?fullText=true\n  "));
         case 2:
-          response = _context3.sent;
-          _context3.next = 5;
+          response = _context2.sent;
+          _context2.next = 5;
           return response.json();
         case 5:
-          selectedCountries = _context3.sent;
-          return _context3.abrupt("return", selectedCountries);
+          selectedCountries = _context2.sent;
+          return _context2.abrupt("return", selectedCountries);
         case 7:
         case "end":
-          return _context3.stop();
+          return _context2.stop();
       }
-    }, _callee3);
+    }, _callee2);
   }));
   return _getCountryByFullName.apply(this, arguments);
 }
