@@ -4,14 +4,12 @@ const container = document.querySelector('.countries-row') as HTMLElement,
   message = document.getElementById('message') as HTMLInputElement,
   country = document.querySelector('.country') as HTMLElement;
 
-/***********************************************************************************/
+let data;
 
-// fetch all countries when load the page
-document.addEventListener('DOMContentLoaded', () => {
-  getData().then((res) => {
-    let content = '';
-    res.forEach((e) => {
-      content += `
+function displayCountries(res) {
+  let content = '';
+  res.forEach((e) => {
+    content += `
       <a  class="box">
       <img src="${e.flags.png}" alt="" />
       <div class="content">
@@ -22,8 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </a>
       `;
-    });
-    container.innerHTML = content;
+  });
+  container.innerHTML = content;
+}
+/***********************************************************************************/
+
+// fetch all countries when load the page
+document.addEventListener('DOMContentLoaded', () => {
+  getData().then((res) => {
+    data = res;
+    displayCountries(data);
   });
 });
 
@@ -40,61 +46,25 @@ async function getData() {
 input.addEventListener('keyup', (e) => {
   if ((e.target as HTMLInputElement).value === '') {
     // if input is empty add all countries to the container
-    getData().then((res) => {
-      // disappear message from UI
-      message.style.display = 'none';
-      let content = '';
-      res.forEach((e) => {
-        content += `
-        <a class="box">
-        <img src="${e.flags.png}" alt="" />
-        <div class="content">
-          <h4>${e.name.common}</h4>
-          <p><span>Population: </span>${e.population}</p>
-          <p><span>Region: </span>${e.region}</p>
-          <p><span>Capital: </span>${e.capital}</p>
-        </div>
-      </a>
-        `;
-      });
-      container.innerHTML = content;
-    });
+    displayCountries(data);
   } else {
-    // There is value in the input field
-    getCountry((e.target as HTMLInputElement).value).then((selected) => {
-      // Display message if there is no country with entered name
-      if (selected.message === 'Not Found') {
-        message.style.display = 'block';
-      } else {
-        message.style.display = 'none';
-        let content = '';
-        selected.forEach((e) => {
-          content += `
-          <a class="box">
-          <img src="${e.flags.png}" alt="" />
-          <div class="content">
-            <h4>${e.name.common}</h4>
-            <p><span>Population: </span>${e.population}</p>
-            <p><span>Region: </span>${e.region}</p>
-            <p><span>Capital: </span>${e.capital}</p>
-          </div>
-        </a>
-          `;
-        });
-        container.innerHTML = content;
+    let input = (e.target as HTMLInputElement).value,
+      countries: object[] = [];
+    data.forEach((e) => {
+      if (
+        e.name.common.toLocaleLowerCase().includes(input.toLocaleLowerCase())
+      ) {
+        countries.push(e);
       }
     });
+    if (countries.length === 0) {
+      message.style.display = 'block';
+    } else {
+      message.style.display = 'none';
+      displayCountries(countries);
+    }
   }
 });
-
-// Get Countries With The same Name
-async function getCountry(inp: string) {
-  // Every key-down make a request
-  let response = await fetch(`https://restcountries.com/v3.1/name/${inp}
-  `);
-  let selectedCountries = await response.json();
-  return selectedCountries;
-}
 
 /***********************************************************************************/
 
