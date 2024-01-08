@@ -140,7 +140,7 @@ function displayCountry(name) {
   let content: string = `
           <div class="container">
           <button id="back">
-            <i class="fa-solid fa-arrow-left me-2"></i> <span>Back</span>
+            <i class="fa-solid fa-arrow-left me-2" id="back"></i> <span id="back">Back</span>
           </button>
           <div class="country-container my-5">
             <div class="image">
@@ -205,9 +205,9 @@ country.addEventListener('click', (e) => {
 /***********************************************************************************/
 
 // Listen For Back button
-document.addEventListener('click', (e) => {
+country.addEventListener('click', (e) => {
   if (
-    ((e.target as HTMLElement).parentElement as HTMLElement).id === 'back' ||
+    (e.target as HTMLElement).id !== '' &&
     (e.target as HTMLElement).id === 'back'
   ) {
     country.style.display = 'none';
