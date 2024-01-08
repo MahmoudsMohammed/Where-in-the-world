@@ -6,6 +6,8 @@ const container = document.querySelector('.countries-row') as HTMLElement,
 
 let data;
 
+/***********************************************************************************/
+
 // Display list of countries
 function displayCountries(res) {
   let content = '';
@@ -58,6 +60,7 @@ input.addEventListener('keyup', (e) => {
         countries.push(e);
       }
     });
+    // there is no country with same name
     if (countries.length === 0) {
       message.style.display = 'block';
     } else {
@@ -107,7 +110,7 @@ input.addEventListener('keyup', (e) => {
 
 /***********************************************************************************/
 
-// display single country
+// display single country based on name get from the box
 function displayCountry(name) {
   let singleCountry;
   data.forEach((e) => {
@@ -176,7 +179,7 @@ function displayCountry(name) {
   country.style.display = 'block';
 }
 
-// make event on single country to display it's page
+// make event on country container to target box
 (document.querySelector('.countries-row') as HTMLElement).addEventListener(
   'click',
   (e) => {
@@ -186,7 +189,7 @@ function displayCountry(name) {
       name = (e.target as HTMLElement).id;
     }
 
-    // Make request and get country data
+    // dispaly country data
     if (name !== '') {
       displayCountry(name);
     }
@@ -198,7 +201,6 @@ function displayCountry(name) {
 // go to country from border countries
 country.addEventListener('click', (e) => {
   if ((e.target as HTMLElement).id === 'border') {
-    // console.log(data[0].cca3);
     data.forEach((el) => {
       if (el.cca3 === (e.target as HTMLElement).innerText) {
         displayCountry(el.name.common);

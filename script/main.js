@@ -11,6 +11,8 @@ var container = document.querySelector('.countries-row'),
   country = document.querySelector('.country');
 var data;
 
+/***********************************************************************************/
+
 // Display list of countries
 function displayCountries(res) {
   var content = '';
@@ -70,6 +72,7 @@ input.addEventListener('keyup', function (e) {
         countries.push(e);
       }
     });
+    // there is no country with same name
     if (countries.length === 0) {
       message.style.display = 'block';
     } else {
@@ -111,7 +114,7 @@ document.getElementById('mode').addEventListener('click', function (e) {
 
 /***********************************************************************************/
 
-// display single country
+// display single country based on name get from the box
 function displayCountry(name) {
   var singleCountry;
   data.forEach(function (e) {
@@ -144,7 +147,7 @@ function displayCountry(name) {
   country.style.display = 'block';
 }
 
-// make event on single country to display it's page
+// make event on country container to target box
 document.querySelector('.countries-row').addEventListener('click', function (e) {
   // Get Country Name From The Box
   var name = '';
@@ -152,7 +155,7 @@ document.querySelector('.countries-row').addEventListener('click', function (e) 
     name = e.target.id;
   }
 
-  // Make request and get country data
+  // dispaly country data
   if (name !== '') {
     displayCountry(name);
   }
@@ -163,7 +166,6 @@ document.querySelector('.countries-row').addEventListener('click', function (e) 
 // go to country from border countries
 country.addEventListener('click', function (e) {
   if (e.target.id === 'border') {
-    // console.log(data[0].cca3);
     data.forEach(function (el) {
       if (el.cca3 === e.target.innerText) {
         displayCountry(el.name.common);
