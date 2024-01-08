@@ -198,7 +198,12 @@ function displayCountry(name) {
 // go to country from border countries
 country.addEventListener('click', (e) => {
   if ((e.target as HTMLElement).id === 'border') {
-    console.log(data[0].cca3);
+    // console.log(data[0].cca3);
+    data.forEach((el) => {
+      if (el.cca3 === (e.target as HTMLElement).innerText) {
+        displayCountry(el.name.common);
+      }
+    });
   }
 });
 

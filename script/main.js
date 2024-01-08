@@ -163,7 +163,12 @@ document.querySelector('.countries-row').addEventListener('click', function (e) 
 // go to country from border countries
 country.addEventListener('click', function (e) {
   if (e.target.id === 'border') {
-    console.log(data[0].cca3);
+    // console.log(data[0].cca3);
+    data.forEach(function (el) {
+      if (el.cca3 === e.target.innerText) {
+        displayCountry(el.name.common);
+      }
+    });
   }
 });
 
